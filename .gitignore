@@ -1,4 +1,5 @@
-sql_pw.txt
+config.py
+config.pyc
 *.ipynb
 *.db
 *.log
