@@ -1,3 +1,4 @@
 sql_pw.txt
 *.ipynb
+*.db
 *.log

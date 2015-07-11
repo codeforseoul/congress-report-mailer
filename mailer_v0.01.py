@@ -1,28 +1,17 @@
 
 # coding: utf-8
 
-# In[16]:
+# In[6]:
 
 
 
 # import sqlite3
 import MySQLdb
 import mandrill
-
-
-## mysql 로그인정보 별도 파일 저장
-f = open("sql_pw.txt", 'r')
-sql_pw = ""
-
-while True: 
-    line = f.readline()
-    sql_pw += line
-    if not line: break 
-
-sql_pw = sql_pw.replace('\n',',')
+import config
 
 ## SQL 연결해서 데이터 가져오기
-conn = MySQLdb.connect(sql_pw)
+conn = MySQLdb.connect(host='localhost', user=config.db['username'], passwd=config.db['password'], db=config.db['db'])
 cursor = conn.cursor()
 cursor.execute('SELECT * from mailing_lst;')
 rows = cursor.fetchall()
@@ -30,7 +19,6 @@ rows = dict(rows)
 
 
 ## 딕셔너리 형태 변환해서 리스트에 넣기
-
 contents = []
 to = 'to'
 
@@ -46,7 +34,6 @@ for k, v in rows.items():
 
 
 ## 맨드릴로 이메일 보내기
-
 try:
     mandrill_client = mandrill.Mandrill('9Pm5oE3ttDqa1mil99RlPQ')
     message = {
