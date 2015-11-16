@@ -1,3 +1,61 @@
-html, body {
+html {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header#assembly {
+    background-color: blue;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header#assembly img.profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+header#assembly .bio {
+    color: white;
+}
+
+#statistics {
+    background-color: #FFC400;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#statistics .attendance, #statistics .proposal {
+    display: flex;
+    flex-direction: column;
+}
+
+#bills {
+    width: 95%;
+}
+
+#bills table {
+    width: 100%;
+}
+
+#bills table > thead {
+    background-color: gray;
+    color: white;
+}
+
+#bills table > tbody {
+    color: #808080;
 }
