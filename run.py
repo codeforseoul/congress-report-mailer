@@ -1,41 +1,13 @@
-
 # coding: utf-8
+from settings import MANDRILL_KEY
+from db import get_rate_of_attendance
 
-# In[6]:
-
-
-
-# import sqlite3
-import MySQLdb
 import mandrill
-import config
-
-## SQL 연결해서 데이터 가져오기
-conn = MySQLdb.connect(host='localhost', user=config.db['username'], passwd=config.db['password'], db=config.db['db'])
-cursor = conn.cursor()
-cursor.execute('SELECT * from mailing_lst;')
-rows = cursor.fetchall()
-rows = dict(rows)
-
-
-## 딕셔너리 형태 변환해서 리스트에 넣기
-contents = []
-to = 'to'
-
-for k, v in rows.items():
-    name = k
-    email = v
-    email_dict = {
-        'name': name,
-        'email': email,
-        'type': to
-    }
-    contents.append(email_dict)
 
 
 ## 맨드릴로 이메일 보내기
 try:
-    mandrill_client = mandrill.Mandrill('9Pm5oE3ttDqa1mil99RlPQ')
+    mandrill_client = mandrill.Mandrill(MANDRILL_KEY)
     message = {
 #     'attachments': [{'content': 'ZXhhbXBsZSBmaWxl',
 #                       'name': 'myfile.txt',
@@ -88,4 +60,3 @@ except mandrill.Error, e:
     print 'A mandrill error occurred: %s - %s' % (e.__class__, e)
     # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'    
     raise
-

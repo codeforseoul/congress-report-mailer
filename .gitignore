@@ -1,5 +1,2 @@
-config.py
-config.pyc
-*.ipynb
-*.db
 *.log
+*.pyc
