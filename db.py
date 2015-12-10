@@ -12,7 +12,8 @@ db = client[DB_NAME]
 attendance = db.attendance_results
 plenary = db.plenary_session_results
 
-today = date.today().replace(year = date.today().year - 1)
+# change this value to `date.today().replace(year = date.today().year - 1)` if you wanna test
+today = date.today()
 
 DATE_FROM = today.replace(day = 1)
 DATE_TO = DATE_FROM.replace(month = DATE_FROM.month + 1) if DATE_FROM.month < 12 else DATE_FROM.replace(year = today.year + 1, month = 1)
@@ -46,12 +47,10 @@ def get_attendances_by_assembly(assembly):
     
 def get_vote_results_by_assembly(assembly):
     votes = plenary.find({'처리날짜': {'$gt': DATE_FROM.isoformat(), '$lt': DATE_TO.isoformat()}})    
-    results = [{ 'title': v['의안명'], 'date': v['처리날짜'], 'result': result['type']} for v in votes for result in v['vote_results'] if assembly in result['member_idxs']]
-        
-    return results
 
-def convert_str_to_date(datestr):
-    return datetime.strptime(datestr, '%Y-%m-%d').date()
+    results = [{ 'title': v['의안명'], 'date': v['처리날짜'], 'result': result['type']} for v in votes for result in v['vote_results'] if assembly in result['member_idxs']]
+
+    return results
 
 if __name__ == '__main__':
     # test
